@@ -6,7 +6,7 @@
 /*   By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 08:10:05 by pnamnil           #+#    #+#             */
-/*   Updated: 2023/09/10 10:40:43 by pnamnil          ###   ########.fr       */
+/*   Updated: 2023/09/10 12:08:41 by pnamnil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,10 @@ void	ft_putx(unsigned long n, t_memo *memo)
 {
 	char	*base;
 
-	base = HEX_LOWER;
 	if (memo->conv == 'X')
 		base = HEX_UPPER;
+	else
+		base = HEX_LOWER;
 	if (n > 15)
 		ft_putx (n / 16, memo);
 	ft_putc (base[n % 16], memo);

@@ -6,7 +6,7 @@
 /*   By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 10:13:49 by pnamnil           #+#    #+#             */
-/*   Updated: 2023/09/10 10:42:17 by pnamnil          ###   ########.fr       */
+/*   Updated: 2023/09/10 12:13:30 by pnamnil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	*ft_fmt(const char *s, t_memo *memo)
 	if (*s == 's')
 		ft_conv_s (memo);
 	if (*s == 'p')
-		ft_conv_p (memo);
+		ft_conv_p (*s, memo);
 	if (*s == 'd' || *s == 'i')
 		ft_conv_d (memo);
 	if (*s == 'u')
@@ -32,13 +32,21 @@ char	*ft_fmt(const char *s, t_memo *memo)
 	return ((char *) s);
 }
 
+void	ft_pf_init_memo(va_list *args, t_memo *memo)
+{
+	memo->fd = 1;
+	memo->nb = 0;
+	memo->args = args;
+	memo->conv = 0;
+}
+
 int	ft_printf(const char *s, ...)
 {
+	va_list	args;
 	t_memo	memo;
 
-	memo.fd = 1;
-	memo.nb = 0;
-	va_start (memo.args, s);
+	ft_pf_init_memo (&args, &memo);
+	va_start (*memo.args, s);
 	while (*s)
 	{
 		if (*s != '%')
@@ -47,6 +55,6 @@ int	ft_printf(const char *s, ...)
 			s = ft_fmt (s, &memo);
 		s++ ;
 	}
-	va_end(memo.args);
+	va_end(*memo.args);
 	return (memo.nb);
 }

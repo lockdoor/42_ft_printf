@@ -6,7 +6,7 @@
 /*   By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 10:46:17 by pnamnil           #+#    #+#             */
-/*   Updated: 2023/09/10 10:39:48 by pnamnil          ###   ########.fr       */
+/*   Updated: 2023/09/10 12:13:19 by pnamnil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ typedef struct s_memo
 	int		nb;
 	int		fd;
 	char	conv;
-	va_list	args;
+	va_list	*args;
 }	t_memo;
 
 int		ft_printf(const char *s, ...);
@@ -32,7 +32,7 @@ int		ft_printf(const char *s, ...);
 // ft_conv_1.c
 void	ft_conv_c(t_memo *memo);
 void	ft_conv_s(t_memo *memo);
-void	ft_conv_p(t_memo *memo);
+void	ft_conv_p(char conv, t_memo *memo);
 void	ft_conv_d(t_memo *memo);
 void	ft_conv_u(t_memo *memo);
 
