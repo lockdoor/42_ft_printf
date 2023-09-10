@@ -6,12 +6,12 @@
 #    By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/07 10:06:31 by pnamnil           #+#    #+#              #
-#    Updated: 2023/09/07 10:30:33 by pnamnil          ###   ########.fr        #
+#    Updated: 2023/09/10 10:38:31 by pnamnil          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libftprintf.a
-SRCS = ft_printf.c
+SRCS = ft_printf.c ft_conv_1.c ft_conv_2.c utils.c
 OBJS = $(patsubst %.c, bin/%.o, $(SRCS))
 
 LIBFT_PATH = libft
