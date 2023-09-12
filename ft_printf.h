@@ -6,7 +6,7 @@
 /*   By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 10:46:17 by pnamnil           #+#    #+#             */
-/*   Updated: 2023/09/10 14:19:09 by pnamnil          ###   ########.fr       */
+/*   Updated: 2023/09/11 10:49:01 by pnamnil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,20 @@
 # define HEX_LOWER "0123456789abcdef"
 # define FLAGS "-0.# +"
 # define CONVENTION "cspdiuxX%"
+# define TRUE 1;
+# define FALSE 0;
 
+typedef unsigned char t_bool;
 typedef struct s_memo
 {
 	int		nb;
 	int		fd;
 	char	conv;
-	int		l_pad;
-	int		z_pad;
+	t_bool	l_pad;
+	t_bool	z_pad;
+	t_bool	pre;
 	int		n_pad;
-	int		pre;
+	int		n_pre;
 	va_list	*args;
 }	t_memo;
 
