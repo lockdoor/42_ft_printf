@@ -6,7 +6,7 @@
 /*   By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 10:13:49 by pnamnil           #+#    #+#             */
-/*   Updated: 2023/09/11 11:02:11 by pnamnil          ###   ########.fr       */
+/*   Updated: 2023/09/12 09:34:12 by pnamnil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,10 @@ char	*ft_pf_flags(const char *s, t_memo *memo)
 			}
 		}
 		
-		// l_pad
+		// l_just
 		else if (*s == '-')
 		{
-			memo->l_pad = TRUE;
+			memo->l_just = TRUE;
 			s++ ;
 			if(*s == '*')
 			{
@@ -59,6 +59,7 @@ char	*ft_pf_flags(const char *s, t_memo *memo)
 		else if (*s == '.')
 		{
 			memo->pre = TRUE;
+			memo->z_pad = FALSE;
 			s++ ;
 			while (*s >= '0' && *s <= '9')
 			{
@@ -69,7 +70,7 @@ char	*ft_pf_flags(const char *s, t_memo *memo)
 		// printf ("memo->n_pad: %d\n", memo->n_pad);
 	}
 	if (!ft_strchr(CONVENTION, *s))
-		exit (2);
+		exit (-1);
 	return ((char *) s);
 }
 
@@ -95,7 +96,7 @@ char	*ft_pf_fmt(const char *s, t_memo *memo)
 	else if (*s == 'x' || *s == 'X')
 		ft_conv_x (*s, memo);
 	else
-		exit (1);
+		exit (-1);
 	s++ ;
 	return ((char *) s);
 }
@@ -106,7 +107,7 @@ void	ft_pf_init_memo(va_list *args, t_memo *memo)
 	memo->nb = 0;
 	memo->args = args;
 	memo->conv = 0;
-	memo->l_pad = FALSE;
+	memo->l_just = FALSE;
 	memo->z_pad = FALSE;
 	memo->pre = FALSE;
 	memo->n_pad = 0;
@@ -116,7 +117,7 @@ void	ft_pf_init_memo(va_list *args, t_memo *memo)
 void	ft_pf_reset_flags(t_memo *memo)
 {
 	memo->conv = 0;
-	memo->l_pad = FALSE;
+	memo->l_just = FALSE;
 	memo->z_pad = FALSE;
 	memo->pre = FALSE;
 	memo->n_pad = 0;

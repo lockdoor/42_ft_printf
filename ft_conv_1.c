@@ -6,7 +6,7 @@
 /*   By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 10:33:59 by pnamnil           #+#    #+#             */
-/*   Updated: 2023/09/11 17:13:09 by pnamnil          ###   ########.fr       */
+/*   Updated: 2023/09/12 09:13:36 by pnamnil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	ft_conv_s(t_memo *memo)
 		s = "(null)";
 	if (memo->n_pad)
 	{
-		if (memo->l_pad)
+		if (memo->l_just)
 		{
 			while (*s)
 			{
@@ -54,7 +54,6 @@ void	ft_conv_s(t_memo *memo)
 			while (*s)
 				ft_putc(*s++, memo);
 		}
-		memo->n_pad = 0;
 	}
 	ft_puts(s, memo);
 }
@@ -71,40 +70,7 @@ void	ft_conv_p(char conv, t_memo *memo)
 	ft_putx (addr, memo);
 }
 
-void	ft_conv_d(t_memo *memo)
-{
-	int	n;
-	int i;
 
-	n = (int) va_arg (*memo->args, int);
-	if (memo->n_pad)
-	{
-		i = memo->nb;
-		if (memo->l_pad)
-		{			
-			ft_putn (n, memo);
-			i = memo->nb - i;
-			while (memo->n_pad - i > 0)
-			{
-				ft_putc(32, memo);
-				memo->n_pad-- ;
-			}
-		}
-		else
-		{
-			ft_putn (n, memo);
-			i = memo->nb - i;
-			while (memo->n_pad - i > 0)
-			{
-				ft_putc(32, memo);
-				memo->n_pad --;
-			}
-		}
-		memo->n_pad = 0;
-	}
-	else
-		ft_putn (n, memo);
-}
 
 void	ft_conv_u(t_memo *memo)
 {

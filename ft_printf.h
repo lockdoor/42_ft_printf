@@ -6,7 +6,7 @@
 /*   By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 10:46:17 by pnamnil           #+#    #+#             */
-/*   Updated: 2023/09/11 10:49:01 by pnamnil          ###   ########.fr       */
+/*   Updated: 2023/09/12 09:13:36 by pnamnil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ typedef struct s_memo
 	int		nb;
 	int		fd;
 	char	conv;
-	t_bool	l_pad;
+	t_bool	l_just;
 	t_bool	z_pad;
 	t_bool	pre;
 	int		n_pad;
