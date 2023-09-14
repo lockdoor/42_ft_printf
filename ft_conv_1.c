@@ -6,7 +6,7 @@
 /*   By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 10:33:59 by pnamnil           #+#    #+#             */
-/*   Updated: 2023/09/12 09:13:36 by pnamnil          ###   ########.fr       */
+/*   Updated: 2023/09/14 10:50:48 by pnamnil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,43 +20,7 @@ void	ft_conv_c(t_memo *memo)
 	ft_putc(c, memo);
 }
 
-void	ft_conv_s(t_memo *memo)
-{
-	char	*s;
 
-	s = va_arg (*memo->args, char *);
-	if (s == NULL)
-		s = "(null)";
-	if (memo->n_pad)
-	{
-		if (memo->l_just)
-		{
-			while (*s)
-			{
-				ft_putc(*s, memo);
-				s++ ;
-				memo->n_pad-- ;
-			}
-			while (memo->n_pad > 0)
-			{
-				ft_putc(32, memo);
-				memo->n_pad-- ;
-			}
-		}
-		else
-		{
-			int n_pad = memo->n_pad - ft_strlen (s); 
-			while (n_pad > 0)
-			{
-				ft_putc(32, memo);
-				n_pad --;
-			}
-			while (*s)
-				ft_putc(*s++, memo);
-		}
-	}
-	ft_puts(s, memo);
-}
 
 void	ft_conv_p(char conv, t_memo *memo)
 {

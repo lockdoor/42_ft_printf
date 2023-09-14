@@ -6,22 +6,37 @@
 /*   By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 08:10:05 by pnamnil           #+#    #+#             */
-/*   Updated: 2023/09/10 12:08:41 by pnamnil          ###   ########.fr       */
+/*   Updated: 2023/09/14 14:34:10 by pnamnil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	ft_putc(char c, t_memo *memo)
+/*
+** protect if write false, it set memo->nb = -1
+*/ 
+t_bool	ft_putc(char c, t_memo *memo)
 {
-	ft_putchar_fd (c, memo->fd);
-	memo->nb += 1;
+	int	write_result;
+
+	write_result = write(memo->fd, &c, 1);
+	if (write_result == -1)
+	{
+		memo->nb = -1;
+		return (FALSE);
+	}
+	memo->nb += write_result;
+	return (TRUE);
 }
 
-void	ft_puts(const char *s, t_memo *memo)
+t_bool	ft_puts(const char *s, t_memo *memo)
 {
 	while (*s)
-		ft_putc (*s++, memo);
+	{
+		if (!ft_putc (*s++, memo))
+			return (FALSE);
+	}
+	return (TRUE);
 }
 
 void	ft_putx(unsigned long n, t_memo *memo)

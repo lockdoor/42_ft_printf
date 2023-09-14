@@ -6,7 +6,7 @@
 /*   By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 10:13:49 by pnamnil           #+#    #+#             */
-/*   Updated: 2023/09/12 09:34:12 by pnamnil          ###   ########.fr       */
+/*   Updated: 2023/09/14 14:17:01 by pnamnil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ char	*ft_pf_fmt(const char *s, t_memo *memo)
 	else if (*s == 'x' || *s == 'X')
 		ft_conv_x (*s, memo);
 	else
-		exit (-1);
+		memo->nb = -1;
 	s++ ;
 	return ((char *) s);
 }
@@ -131,7 +131,7 @@ int	ft_printf(const char *s, ...)
 
 	ft_pf_init_memo (&args, &memo);
 	va_start (*memo.args, s);
-	while (*s)
+	while (*s && memo.nb != -1)
 	{
 		if (*s != '%')
 		{
