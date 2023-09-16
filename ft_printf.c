@@ -6,7 +6,7 @@
 /*   By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 10:13:49 by pnamnil           #+#    #+#             */
-/*   Updated: 2023/09/16 13:07:14 by pnamnil          ###   ########.fr       */
+/*   Updated: 2023/09/16 16:50:33 by pnamnil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,12 @@ static char *ft_printf_spec(const char *s, t_memo *memo)
 		ft_printf_spec_s (memo);
 	else if (*s == 'd' || *s == 'i')
 		ft_printf_spec_d (memo);
+	else if (*s == 'p')
+		ft_printf_spec_p (memo);
+	else if (*s == 'u')
+		ft_printf_spec_u (memo);
+	else if (*s == 'x' || *s == 'X')
+		ft_printf_spec_x (s, memo);
 	else
 		memo->cnt = -1;
 	return ((char *) ++s);

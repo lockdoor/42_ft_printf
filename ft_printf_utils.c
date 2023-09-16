@@ -6,7 +6,7 @@
 /*   By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 08:10:05 by pnamnil           #+#    #+#             */
-/*   Updated: 2023/09/16 14:58:08 by pnamnil          ###   ########.fr       */
+/*   Updated: 2023/09/16 16:59:16 by pnamnil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,32 +33,35 @@ static void ft_print_number_h1 (char *n, char *p, int len, t_memo *memo)
 {
 	int	i;
 
-	if (memo->plus_sign)
-	{
-		*--p = memo->plus_sign;
-		len++ ;
-	}
 	if (memo->prefix)
 	{
-		i = 0;
-		while (memo->prefix[i])
+		i = ft_strlen(memo->prefix);
+		while (i > 0)
 		{
-			*--p = memo->prefix[i];
+			*--p = memo->prefix[--i];
 			len++ ;
 		}
 	}
 	while (len < memo->n_pad && !memo->l_just)
 	{
-		if (memo->padc == '0' && memo->plus_sign != 0)
+		if (memo->padc == '0')
 		{
-			ft_printf_putc(*p++, memo);
-			memo->plus_sign = 0;
-			// len++ ;
+			if (memo->plus_sign != 0)
+			{
+				ft_printf_putc(*p++, memo);
+				memo->plus_sign = 0;
+			}
+			else if (memo->prefix)
+			{
+				i = 0;
+				memo->prefix = NULL;
+				while (memo->prefix[i++])
+					ft_printf_putc (*p++, memo);
+			}
 		}
 		ft_printf_putc (memo->padc, memo);
-		len++ ;
+		len++;
 	}
-	// while (p < &n[MAX_BUF])
 	while (p < n)
 	{
 		ft_printf_putc (*p++, memo);
@@ -70,13 +73,13 @@ static void ft_print_number_h1 (char *n, char *p, int len, t_memo *memo)
 	}
 }
 
-void	ft_printf_number(long u, t_memo *memo)
+void	ft_printf_number(unsigned long u, t_memo *memo)
 {
 	char	n[MAX_BUF + 1];
 	char	*p;
 	int		len;
-	// int		i;
 
+	// printf ("%lu\n", u);
 	n[MAX_BUF] = 0;
 	p = &n[MAX_BUF - 1];
 	while (u / memo->base)
@@ -91,42 +94,11 @@ void	ft_printf_number(long u, t_memo *memo)
 		len++ ;
 		*--p = '0';
 	}
+	if (memo->plus_sign)
+	{
+		*--p = memo->plus_sign;
+		len++ ;
+	}
+	// printf("%s\n", p);
 	ft_print_number_h1 (&n[MAX_BUF], p, len, memo);
-	/* this work before seperate function to ft_print_number_h1 */
-	// if (memo->plus_sign)
-	// {
-	// 	*--p = memo->plus_sign;
-	// 	len++ ;
-	// }
-	// if (memo->prefix)
-	// {
-	// 	i = 0;
-	// 	while (memo->prefix[i])
-	// 	{
-	// 		*--p = memo->prefix[i];
-	// 		len++ ;
-	// 	}
-	// }
-	// while (len < memo->n_pad && !memo->l_just)
-	// {
-	// 	if (memo->padc == '0' && memo->plus_sign != 0)
-	// 	{
-	// 		ft_printf_putc(*p++, memo);
-	// 		memo->plus_sign = 0;
-	// 		// len++ ;
-	// 	}
-	// 	ft_printf_putc (memo->padc, memo);
-	// 	len++ ;
-	// }
-	// while (p < &n[MAX_BUF])
-	// {
-	// 	ft_printf_putc (*p++, memo);
-	// }
-	// while (len < memo->n_pad && memo->l_just)
-	// {
-	// 	ft_printf_putc (memo->padc, memo);
-	// 	len++ ;
-	// }
 }
-
-

@@ -6,13 +6,14 @@
 /*   By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 10:46:17 by pnamnil           #+#    #+#             */
-/*   Updated: 2023/09/16 14:43:45 by pnamnil          ###   ########.fr       */
+/*   Updated: 2023/09/16 16:49:45 by pnamnil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
 
+# include <stdio.h>
 # include <stdarg.h>
 # include <unistd.h>
 # include "libft.h"
@@ -56,9 +57,12 @@ void	ft_printf_reset_memo(t_memo *memo);
 void    ft_printf_spec_c(const char *s, t_memo *memo);
 void	ft_printf_spec_s(t_memo *memo);
 void	ft_printf_spec_d(t_memo *memo);
+void	ft_printf_spec_p(t_memo *memo);
+void	ft_printf_spec_u(t_memo *memo);
+void	ft_printf_spec_x(const char *s, t_memo *memo);
 
 // utils
 t_bool	ft_printf_putc(char c, t_memo *memo);
-void	ft_printf_number(long u, t_memo *memo);
+void	ft_printf_number(unsigned long u, t_memo *memo);
 
 #endif
