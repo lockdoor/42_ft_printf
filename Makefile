@@ -6,12 +6,14 @@
 #    By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/07 10:06:31 by pnamnil           #+#    #+#              #
-#    Updated: 2023/09/14 12:44:07 by pnamnil          ###   ########.fr        #
+#    Updated: 2023/09/16 13:07:47 by pnamnil          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libftprintf.a
-SRCS = ft_printf.c ft_conv_s.c ft_conv_d.c ft_conv_1.c ft_conv_2.c utils.c
+PREFIX = ft_printf
+SRCS = $(addprefix $(PREFIX), .c _flags.c _utils.c _spec_c.c _spec_s.c\
+	_spec_d.c)
 OBJS = $(patsubst %.c, bin/%.o, $(SRCS))
 
 LIBFT_PATH = libft
@@ -22,6 +24,8 @@ CC = cc
 CFLAGS = -Wall -Werror -Wextra -I$(LIBFT_PATH)
 
 all: $(NAME)
+
+bonus: $(NAME)
 
 bin/%.o: %.c
 	mkdir -p bin

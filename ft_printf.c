@@ -6,122 +6,37 @@
 /*   By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 10:13:49 by pnamnil           #+#    #+#             */
-/*   Updated: 2023/09/14 14:17:01 by pnamnil          ###   ########.fr       */
+/*   Updated: 2023/09/16 13:07:14 by pnamnil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include <stdio.h>
-/*
-** Error Code;
-** 1. ft_pf_fmt
-** 2. ft_pf_flags
-*/
 
-char	*ft_pf_flags(const char *s, t_memo *memo)
+void test_flags(t_memo *memo)
 {
-	(void) memo;
-	while (*s && !ft_strchr(CONVENTION, *s))
-	{
-		// z_pad
-		if (*s >= '0' && *s <='9')
-		{
-			if (*s == '0')
-			{
-				memo->z_pad = TRUE;
-				s++ ;
-			}
-			while (*s >= '0' && *s <= '9')
-			{
-				memo->n_pad = (memo->n_pad) * 10 + (*s - '0');
-				s++ ;
-			}
-		}
-		
-		// l_just
-		else if (*s == '-')
-		{
-			memo->l_just = TRUE;
-			s++ ;
-			if(*s == '*')
-			{
-				memo->n_pad = va_arg(*memo->args, int);
-				s++ ;
-			}
-			while (*s >= '0' && *s <= '9')
-			{
-				memo->n_pad = (memo->n_pad * 10) + (*s - '0');
-				s++ ;
-			}
-		}
-
-		// pre
-		else if (*s == '.')
-		{
-			memo->pre = TRUE;
-			memo->z_pad = FALSE;
-			s++ ;
-			while (*s >= '0' && *s <= '9')
-			{
-				memo->n_pre = (memo->n_pre * 10) + (*s - '0');
-				s++ ;
-			}
-		}
-		// printf ("memo->n_pad: %d\n", memo->n_pad);
-	}
-	if (!ft_strchr(CONVENTION, *s))
-		exit (-1);
-	return ((char *) s);
+	printf ("memo->fd: %d\n", memo->fd);
+	printf ("memo->cnt: %d\n", memo->cnt);
+	printf ("memo->prefix: %s\n", memo->prefix);
+	printf ("memo->padc: '%c'\n", memo->padc);
+	printf ("memo->plus_sign: '%c'\n", memo->plus_sign);
+	printf ("memo->l_just: %u\n", memo->l_just);
+	printf ("memo->prefix_o_x: %u\n", memo->prefix_o_x);
+	printf ("memo->n_pad: %d\n", memo->n_pad);
+	printf ("memo->n_pre: %d\n", memo->n_pre);
 }
 
-
-char	*ft_pf_fmt(const char *s, t_memo *memo)
+static char *ft_printf_spec(const char *s, t_memo *memo)
 {
-	s++ ;
-	if (ft_strchr(FLAGS, *s) || (*s >= '0' && *s <= '9'))
-		s = ft_pf_flags (s, memo);
-	// printf ("s: %c\n", *s);
-	if (*s == '%')
-		ft_putc (*s, memo);
-	else if (*s == 'c')
-		ft_conv_c (memo);
+	if (*s == '%' || *s == 'c')
+		ft_printf_spec_c (s, memo);
 	else if (*s == 's')
-		ft_conv_s (memo);
-	else if (*s == 'p')
-		ft_conv_p (*s, memo);
+		ft_printf_spec_s (memo);
 	else if (*s == 'd' || *s == 'i')
-		ft_conv_d (memo);
-	else if (*s == 'u')
-		ft_conv_u (memo);
-	else if (*s == 'x' || *s == 'X')
-		ft_conv_x (*s, memo);
+		ft_printf_spec_d (memo);
 	else
-		memo->nb = -1;
-	s++ ;
-	return ((char *) s);
-}
-
-void	ft_pf_init_memo(va_list *args, t_memo *memo)
-{
-	memo->fd = 1;
-	memo->nb = 0;
-	memo->args = args;
-	memo->conv = 0;
-	memo->l_just = FALSE;
-	memo->z_pad = FALSE;
-	memo->pre = FALSE;
-	memo->n_pad = 0;
-	memo->n_pre = 0;
-}
-
-void	ft_pf_reset_flags(t_memo *memo)
-{
-	memo->conv = 0;
-	memo->l_just = FALSE;
-	memo->z_pad = FALSE;
-	memo->pre = FALSE;
-	memo->n_pad = 0;
-	memo->n_pre = 0;
+		memo->cnt = -1;
+	return ((char *) ++s);
 }
 
 int	ft_printf(const char *s, ...)
@@ -129,19 +44,24 @@ int	ft_printf(const char *s, ...)
 	va_list	args;
 	t_memo	memo;
 
-	ft_pf_init_memo (&args, &memo);
+	ft_printf_init_memo (&args, &memo);
 	va_start (*memo.args, s);
-	while (*s && memo.nb != -1)
+	while (*s && memo.cnt != -1)
 	{
 		if (*s != '%')
 		{
-			ft_putc (*s, &memo);
-			s++ ;
+			ft_printf_putc (*s++, &memo);
 			continue ;
 		}
-		s = ft_pf_fmt (s, &memo);
-		ft_pf_reset_flags (&memo);
+		s++ ;
+		s = ft_printf_getsign (s, &memo);
+		// printf ("'%c'\n", *s);
+		s = ft_printf_getflags (s, &memo);
+		// printf ("'%c'\n", *s);
+		s = ft_printf_spec (s, &memo);
+		ft_printf_reset_memo(&memo);
 	}
+	// test_flags (&memo);
 	va_end(*memo.args);
-	return (memo.nb);
+	return (memo.cnt);
 }
