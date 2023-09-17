@@ -6,14 +6,16 @@
 /*   By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 10:13:49 by pnamnil           #+#    #+#             */
-/*   Updated: 2023/09/16 16:50:33 by pnamnil          ###   ########.fr       */
+/*   Updated: 2023/09/17 16:09:38 by pnamnil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include <stdio.h>
 
-void test_flags(t_memo *memo)
+/* this function use for test flags */
+/*
+void	test_flags(t_memo *memo)
 {
 	printf ("memo->fd: %d\n", memo->fd);
 	printf ("memo->cnt: %d\n", memo->cnt);
@@ -25,8 +27,9 @@ void test_flags(t_memo *memo)
 	printf ("memo->n_pad: %d\n", memo->n_pad);
 	printf ("memo->n_pre: %d\n", memo->n_pre);
 }
+*/
 
-static char *ft_printf_spec(const char *s, t_memo *memo)
+static char	*ft_printf_spec(const char *s, t_memo *memo)
 {
 	if (*s == '%' || *s == 'c')
 		ft_printf_spec_c (s, memo);
@@ -42,7 +45,7 @@ static char *ft_printf_spec(const char *s, t_memo *memo)
 		ft_printf_spec_x (s, memo);
 	else
 		memo->cnt = -1;
-	return ((char *) ++s);
+	return ((char *)++s);
 }
 
 int	ft_printf(const char *s, ...)
@@ -61,13 +64,10 @@ int	ft_printf(const char *s, ...)
 		}
 		s++ ;
 		s = ft_printf_getsign (s, &memo);
-		// printf ("'%c'\n", *s);
 		s = ft_printf_getflags (s, &memo);
-		// printf ("'%c'\n", *s);
 		s = ft_printf_spec (s, &memo);
 		ft_printf_reset_memo(&memo);
 	}
-	// test_flags (&memo);
 	va_end(*memo.args);
 	return (memo.cnt);
 }

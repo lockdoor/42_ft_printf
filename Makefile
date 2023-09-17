@@ -6,22 +6,22 @@
 #    By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/07 10:06:31 by pnamnil           #+#    #+#              #
-#    Updated: 2023/09/16 16:49:56 by pnamnil          ###   ########.fr        #
+#    Updated: 2023/09/17 16:56:51 by pnamnil          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = libftprintf.a
-PREFIX = ft_printf
-SRCS = $(addprefix $(PREFIX), .c _flags.c _utils.c _spec_c.c _spec_s.c\
-	_spec_d.c _spec_p.c _spec_u.c _spec_x.c)
-OBJS = $(patsubst %.c, bin/%.o, $(SRCS))
+NAME 		= libftprintf.a
+PREFIX 		= ft_printf
+SRCS 		= $(addprefix $(PREFIX), .c _flags.c _utils.c _spec_c.c _spec_s.c\
+				_spec_d.c _spec_p.c _spec_u.c _spec_x.c)
+OBJS 		= $(patsubst %.c, bin/%.o, $(SRCS))
 
-LIBFT_PATH = libft
-LIBFT_OBJS = $(LIBFT_PATH)/bin/*.o
-LIBFT_MAKE = $(MAKE) -C $(LIBFT_PATH) bonus
+LIBFT_PATH 	= libft
+LIBFT_OBJS 	= $(LIBFT_PATH)/bin/*.o
+LIBFT_MAKE 	= $(MAKE) -C $(LIBFT_PATH) bonus
 
-CC = cc
-CFLAGS = -Wall -Werror -Wextra -I$(LIBFT_PATH)
+CC 			= cc
+CFLAGS 		= -Wall -Werror -Wextra -I$(LIBFT_PATH)
 
 all: $(NAME)
 

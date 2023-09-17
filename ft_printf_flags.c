@@ -6,7 +6,7 @@
 /*   By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 08:26:03 by pnamnil           #+#    #+#             */
-/*   Updated: 2023/09/16 13:57:55 by pnamnil          ###   ########.fr       */
+/*   Updated: 2023/09/17 17:03:42 by pnamnil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,13 @@ char	*ft_printf_getsign(const char *s, t_memo *memo)
 	{
 		if (*s == '#')
 			memo->prefix_o_x = TRUE;
+		else if (*s == '0')
+			memo->padc = '0';
 		else if (*s == '-')
+		{
+			memo->padc = 32;
 			memo->l_just = TRUE;
+		}
 		else if (*s == '+')
 			memo->plus_sign = '+';
 		else if (*s == ' ')
@@ -50,7 +55,8 @@ static char	*ft_printf_getlen(const char *s, int *val, int type, t_memo *memo)
 		if (*val < 0 && type == 0)
 		{
 			*val = -*val;
-			memo->l_just = !memo->l_just;
+			memo->l_just = TRUE;
+			memo->padc = 32;
 		}
 		s++ ;
 	}
@@ -59,19 +65,15 @@ static char	*ft_printf_getlen(const char *s, int *val, int type, t_memo *memo)
 
 char	*ft_printf_getflags(const char *s, t_memo *memo)
 {
-	if (*s == '0')
-	{
-		memo->padc = '0';
-		s++ ;
-	}
 	if (ft_isdigit (*s) || *s == '*')
 		s = ft_printf_getlen (s, &memo->n_pad, 0, memo);
 	if (*s == '.')
 	{
 		s++ ;
 		memo->n_pre = 0;
-		memo->padc = 32;
 		s = ft_printf_getlen (s, &memo->n_pre, 1, memo);
+		if (memo->n_pre >= 0)
+			memo->padc = 32;
 	}
 	return ((char *) s);
 }
@@ -88,6 +90,7 @@ void	ft_printf_init_memo(va_list *args, t_memo *memo)
 	memo->l_just = FALSE;
 	memo->prefix_o_x = FALSE;
 	memo->prefix = NULL;
+	memo->base_c = NULL;
 }
 
 void	ft_printf_reset_memo(t_memo *memo)
@@ -99,4 +102,5 @@ void	ft_printf_reset_memo(t_memo *memo)
 	memo->l_just = FALSE;
 	memo->prefix_o_x = FALSE;
 	memo->prefix = NULL;
+	memo->base_c = NULL;
 }

@@ -6,7 +6,7 @@
 /*   By: pnamnil <pnamnil@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 16:12:47 by pnamnil           #+#    #+#             */
-/*   Updated: 2023/09/16 16:23:44 by pnamnil          ###   ########.fr       */
+/*   Updated: 2023/09/17 07:10:45 by pnamnil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,5 @@ void	ft_printf_spec_u(t_memo *memo)
 	memo->plus_sign = 0;
 	memo->base = 10;
 	memo->base_c = HEX_LOWER;
-	// printf ("%lu\n",u);
 	ft_printf_number (u, memo);
 }
